@@ -1,7 +1,7 @@
 <!--
  * @Author: Libra
  * @Date: 2021-08-30 10:27:33
- * @LastEditTime: 2021-09-08 15:37:16
+ * @LastEditTime: 2021-09-08 16:48:10
  * @LastEditors: Libra
  * @Description: 播放器组件
  * @FilePath: /video-player/src/components/videoPlayer.vue
@@ -14,7 +14,22 @@
       controls
       preload="auto"
     />
-    <div v-if="!isComplete && showControlBar" class="control-bar">
+    <div
+      v-if="!isComplete && showControlBar"
+      class="control-bar"
+      @click.stop="() => {}"
+    >
+      <div class="volume">
+        <span class="iconfont icon-shengyintianchong"></span>
+        <vue-slider
+          v-model="volume"
+          tooltip="none"
+          class="volume-slider"
+          direction="btt"
+          dotSize="8"
+          @dragging="setVolume"
+        />
+      </div>
       <div class="left_time">{{ convertTime(start) }}</div>
       <vue-slider
         v-model="percentage"
@@ -24,7 +39,11 @@
       />
       <div class="right_time">{{ convertTime(moment) }}</div>
     </div>
-    <div v-if="isComplete && showControlBar" class="control-bar2">
+    <div
+      v-if="isComplete && showControlBar"
+      class="control-bar2"
+      @click.stop="() => {}"
+    >
       <span
         v-if="isPlaying"
         @click="playAndPause"
@@ -157,7 +176,7 @@ export default {
         {
           controls: false,
           autoplay: true,
-          muted: false,
+          muted: true,
           preload: "auto",
           sources: [this.playList[this.current]],
           controlBar: {
@@ -187,17 +206,19 @@ export default {
       });
       this.myPlayer.on("ended", () => {
         this.current++;
+        this.$emit("complete");
         // if (this.current + 1 > this.playList.length) {
         //   clearInterval(this.timer);
         //   this.current = 0;
+        //   this.$emit("complete");
         //   return;
         // }
-        this.$emit("complete");
         this.myPlayer.src(this.playList[this.current]);
         this.isPlayOrPause = false;
         this.myPlayer.play();
       });
       this.myPlayer.on("play", () => {
+        console.log(this.playList);
         if (!this.isPlayOrPause) {
           this.moment = new Date(
             this.playList[this.current].createdAt
@@ -360,6 +381,7 @@ export default {
       }
     },
     setVolume(val) {
+      this.myPlayer.muted(false);
       this.myPlayer.volume(val / 100);
     },
     defaultVolume() {
@@ -367,7 +389,7 @@ export default {
         this.volume = 0;
       }
       // 默认 50% 音量
-      this.myPlayer.volume(0.5);
+      this.myPlayer.volume(0);
       this.volume = this.myPlayer.volume() * 100;
     },
     fullscreen() {
@@ -433,6 +455,26 @@ export default {
   .right_time {
     padding: 0 10px;
     width: 60px;
+  }
+  .volume {
+    padding-left: 10px;
+    position: relative;
+    height: 100px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    &:hover {
+      .volume-slider {
+        display: block;
+      }
+    }
+    .volume-slider {
+      position: absolute;
+      display: none;
+      bottom: 60px;
+      left: 10px;
+      height: 80px !important;
+    }
   }
 }
 .control-bar2 {
