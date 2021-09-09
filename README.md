@@ -27,7 +27,7 @@
     ...
   ]
   ```
-- `complete`: 每一片视频播放完成的回调
+- `complete`: 每一片视频播放完成的回调,参数为当前片的`index`
 - `showControlBar`: 是否显示下方的工具条，默认为`true`
 - `cheatArr`: 作弊点
   - 格式

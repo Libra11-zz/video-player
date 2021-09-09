@@ -1,7 +1,7 @@
 <!--
  * @Author: Libra
  * @Date: 2021-08-30 10:27:33
- * @LastEditTime: 2021-09-08 16:48:10
+ * @LastEditTime: 2021-09-09 16:38:19
  * @LastEditors: Libra
  * @Description: 播放器组件
  * @FilePath: /video-player/src/components/videoPlayer.vue
@@ -205,8 +205,8 @@ export default {
         this.myPlayer.play();
       });
       this.myPlayer.on("ended", () => {
+        this.$emit("complete", this.current);
         this.current++;
-        this.$emit("complete");
         // if (this.current + 1 > this.playList.length) {
         //   clearInterval(this.timer);
         //   this.current = 0;
