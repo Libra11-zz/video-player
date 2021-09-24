@@ -1,7 +1,8 @@
 {
   "name": "video-player-libra",
-  "version": "0.2.5",
+  "version": "0.2.9",
   "main": "dist/video-player.umd.min.js",
+  "typings": "types/index.d.ts",
   "author": "libra121",
   "scripts": {
     "serve": "vue-cli-service serve",

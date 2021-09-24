@@ -1,7 +1,7 @@
 <!--
  * @Author: Libra
  * @Date: 2021-08-30 10:27:33
- * @LastEditTime: 2021-09-09 16:38:19
+ * @LastEditTime: 2021-09-24 16:25:06
  * @LastEditors: Libra
  * @Description: 播放器组件
  * @FilePath: /video-player/src/components/videoPlayer.vue
@@ -124,6 +124,10 @@ export default {
     cheatArr: {
       type: Array,
       default: () => []
+    },
+    autoReset: {
+      type: Boolean,
+      default: false
     }
   },
   watch: {
@@ -154,7 +158,8 @@ export default {
       preVal: 0,
       isPlaying: true,
       volume: 0,
-      isPlayOrPause: false
+      isPlayOrPause: false,
+      reset: false
     };
   },
   created() {
@@ -200,29 +205,39 @@ export default {
       );
       this.myPlayer.on("error", function() {
         console.log("err", this.myPlayer.error());
-        this.current++;
-        this.myPlayer.src(this.playList[this.current]);
-        this.myPlayer.play();
+        if (this.current + 1 > this.playList.length) {
+          //如果当前报错为最后一片视频
+          this.$emit("last");
+          this.current = 0;
+        } else {
+          this.current++;
+          this.myPlayer.src(this.playList[this.current]);
+          this.myPlayer.play();
+        }
       });
       this.myPlayer.on("ended", () => {
         this.$emit("complete", this.current);
         this.current++;
-        // if (this.current + 1 > this.playList.length) {
-        //   clearInterval(this.timer);
-        //   this.current = 0;
-        //   this.$emit("complete");
-        //   return;
-        // }
+        if (this.current + 1 > this.playList.length && this.autoReset) {
+          //最后一片视频并且开启了autoReset
+          this.current = 0;
+          this.reset = true;
+        }
         this.myPlayer.src(this.playList[this.current]);
         this.isPlayOrPause = false;
         this.myPlayer.play();
       });
       this.myPlayer.on("play", () => {
-        console.log(this.playList);
         if (!this.isPlayOrPause) {
           this.moment = new Date(
             this.playList[this.current].createdAt
           ).getTime();
+        }
+        if (this.reset) {
+          setTimeout(() => {
+            this.playAndPause();
+            this.reset = false;
+          }, 1000);
         }
       });
     },
@@ -232,7 +247,8 @@ export default {
         const percentage =
           ((this.moment - this.start) / (this.end - this.start)) * 100;
         this.percentage = percentage > 100 ? 100 : percentage;
-        if (this.percentage === 100) clearInterval(this.timer);
+        if (this.percentage === 100 && !this.autoReset)
+          clearInterval(this.timer);
       }, 1000);
     },
     convertTime(time) {
