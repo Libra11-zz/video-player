@@ -1,7 +1,7 @@
 <!--
  * @Author: Libra
  * @Date: 2021-08-30 10:27:33
- * @LastEditTime: 2021-09-24 16:25:06
+ * @LastEditTime: 2021-09-26 17:34:27
  * @LastEditors: Libra
  * @Description: 播放器组件
  * @FilePath: /video-player/src/components/videoPlayer.vue
@@ -203,7 +203,7 @@ export default {
           }
         }
       );
-      this.myPlayer.on("error", function() {
+      this.myPlayer.on("error", () => {
         console.log("err", this.myPlayer.error());
         if (this.current + 1 > this.playList.length) {
           //如果当前报错为最后一片视频
@@ -234,10 +234,9 @@ export default {
           ).getTime();
         }
         if (this.reset) {
-          setTimeout(() => {
-            this.playAndPause();
-            this.reset = false;
-          }, 1000);
+          this.percentage = 0;
+          this.playAndPause();
+          this.reset = false;
         }
       });
     },
