@@ -1,7 +1,7 @@
 <!--
  * @Author: Libra
  * @Date: 2021-08-30 10:27:33
- * @LastEditTime: 2021-09-26 17:34:27
+ * @LastEditTime: 2021-09-30 14:20:44
  * @LastEditors: Libra
  * @Description: 播放器组件
  * @FilePath: /video-player/src/components/videoPlayer.vue
@@ -38,6 +38,10 @@
         :disabled="true"
       />
       <div class="right_time">{{ convertTime(moment) }}</div>
+      <span
+        @click="isFullScreen ? exitFullscreen() : fullscreen()"
+        class="iconfont icon-fullscreen"
+      ></span>
     </div>
     <div
       v-if="isComplete && showControlBar"
@@ -73,6 +77,10 @@
         @dragging="checkRange"
       />
       <div class="right_time">{{ convertTime(moment) }}</div>
+      <span
+        @click="isFullScreen ? exitFullscreen() : fullscreen()"
+        class="iconfont icon-fullscreen"
+      ></span>
     </div>
   </div>
 </template>
@@ -159,7 +167,8 @@ export default {
       isPlaying: true,
       volume: 0,
       isPlayOrPause: false,
-      reset: false
+      reset: false,
+      isFullScreen: false
     };
   },
   created() {
@@ -408,7 +417,13 @@ export default {
       this.volume = this.myPlayer.volume() * 100;
     },
     fullscreen() {
-      this.myPlayer.requestFullscreen();
+      this.isFullScreen = true;
+      const element = document.querySelector(`.container${this.id}`); // 获取dom
+      element.requestFullscreen(); // 调用全屏
+    },
+    exitFullscreen() {
+      this.isFullScreen = false;
+      document.exitFullscreen();
     }
   }
 };
@@ -470,6 +485,7 @@ export default {
   .right_time {
     padding: 0 10px;
     width: 60px;
+    text-align: center;
   }
   .volume {
     padding-left: 10px;
@@ -490,6 +506,10 @@ export default {
       left: 10px;
       height: 80px !important;
     }
+  }
+  .icon-fullscreen {
+    cursor: pointer;
+    padding: 0 10px 0 0;
   }
 }
 .control-bar2 {
@@ -513,6 +533,10 @@ export default {
   }
   .icon-icon_bofang {
     padding: 0 10px;
+  }
+  .icon-fullscreen {
+    cursor: pointer;
+    padding: 0 10px 0 0;
   }
   .volume {
     position: relative;
@@ -548,6 +572,7 @@ export default {
   .right_time {
     padding: 0 10px;
     width: 60px;
+    text-align: center;
   }
 }
 </style>

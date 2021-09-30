@@ -1,7 +1,7 @@
 /*
  * @Author: Libra
  * @Date: 2021-08-31 11:52:40
- * @LastEditTime: 2021-09-06 14:41:58
+ * @LastEditTime: 2021-09-30 11:39:36
  * @LastEditors: Libra
  * @Description:
  * @FilePath: /video-player/src/data/index.js
@@ -23,7 +23,7 @@ export default {
       name: "6113354fd8e47d00140441fc_1628651448345.mp4",
       type: 2,
       path:
-        "camera/611334dfd8e47d00140441ee/6113354fd8e47d00140441fc_1628651448345.mp4",
+        "camera/61552d6f70c5e10014d1f158/61552d8670c5e10014d1f15e_1632973041323.mp4",
       createdAt: "2021-08-11 11:10:48"
     },
     {
@@ -31,7 +31,7 @@ export default {
       name: "6113354fd8e47d00140441fc_1628651444983.mp4",
       type: 2,
       path:
-        "camera/611334dfd8e47d00140441ee/6113354fd8e47d00140441fc_1628651444983.mp4",
+        "camera/61552d6f70c5e10014d1f158/61552d8670c5e10014d1f15e_1632973041323.mp4",
       createdAt: "2021-08-11 11:10:45"
     },
     {
@@ -39,7 +39,7 @@ export default {
       name: "6113354fd8e47d00140441fc_1628651429935.mp4",
       type: 2,
       path:
-        "camera/611334dfd8e47d00140441ee/6113354fd8e47d00140441fc_1628651429935.mp4",
+        "camera/61552d6f70c5e10014d1f158/61552d8670c5e10014d1f15e_1632973041323.mp4",
       createdAt: "2021-08-11 11:10:30"
     },
     {
@@ -47,7 +47,7 @@ export default {
       name: "6113354fd8e47d00140441fc_1628651414409.mp4",
       type: 2,
       path:
-        "camera/611334dfd8e47d00140441ee/6113354fd8e47d00140441fc_1628651414409.mp4",
+        "camera/61552d6f70c5e10014d1f158/61552d8670c5e10014d1f15e_1632973041323.mp4",
       createdAt: "2021-08-11 11:10:15"
     },
     {
@@ -55,7 +55,7 @@ export default {
       name: "6113354fd8e47d00140441fc_1628651399367.mp4",
       type: 2,
       path:
-        "camera/611334dfd8e47d00140441ee/6113354fd8e47d00140441fc_1628651399367.mp4",
+        "camera/61552d6f70c5e10014d1f158/61552d8670c5e10014d1f15e_1632973041323.mp4",
       createdAt: "2021-08-11 11:09:59"
     }
   ]

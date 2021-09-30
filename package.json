@@ -1,6 +1,6 @@
 {
   "name": "video-player-libra",
-  "version": "0.2.9",
+  "version": "0.3.0",
   "main": "dist/video-player.umd.min.js",
   "typings": "types/index.d.ts",
   "author": "libra121",

@@ -1,7 +1,7 @@
 <!--
  * @Author: Libra
  * @Date: 2021-08-24 11:16:56
- * @LastEditTime: 2021-09-06 15:51:45
+ * @LastEditTime: 2021-09-30 14:19:38
  * @LastEditors: Libra
  * @Description:
  * @FilePath: /video-player/src/App.vue
@@ -14,7 +14,7 @@
           :start="start"
           :end="end"
           :play-list="playList"
-          :is-complete="true"
+          :is-complete="false"
           :width="100"
           :height="100"
           @complete="complete"
@@ -57,6 +57,7 @@ export default {
     }
     setTimeout(() => {
       for (const item of this.movies) {
+        console.log(item.path);
         this.playList.push({
           src: `https://file-test.stac.fun/${item.path}`,
           type: "video/mp4",
